@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BlogPost } from '../Data/blog-posts';
+import { BlogPost } from '../data/blog-posts';
 
 interface BlogListProps {
     posts: BlogPost[];

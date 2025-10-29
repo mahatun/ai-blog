@@ -1,6 +1,6 @@
 import React from 'react';
-import BlogList from '../Components/BlogList';
-import { blogPosts } from '../Data/blog-posts';
+import BlogList from '../components/BlogList';
+import { blogPosts } from '../data/blog-posts';
 
 const Home: React.FC = () => {
     return (
