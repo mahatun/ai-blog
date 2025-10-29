@@ -1,11 +1,31 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { blogPosts } from '../data/blog-posts';
+import { Link, useParams } from 'react-router-dom';
+import { BlogPost, fetchBlogPosts } from '../data/blog-posts';
 
 const Post: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    const post = blogPosts.find(p => p.id === id);
+    const [post, setPost] = useState<BlogPost | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadPost = async () => {
+            try {
+                const posts = await fetchBlogPosts();
+                const foundPost = posts.find(p => p.id === id);
+                setPost(foundPost || null);
+            } catch (error) {
+                console.error('Failed to load post:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadPost();
+    }, [id]);
+
+    if (loading) {
+        return <div>Loading post...</div>;
+    }
 
     if (!post) {
         return (
